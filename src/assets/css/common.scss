@@ -1,0 +1,116 @@
+@import './iconfont.css';
+body {
+  font-family: graphik, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: $mine-shaft;
+  padding: 0;
+  margin: 0;
+  font-size: $medium;
+  min-width: 1200px;
+  overflow: auto;
+}
+
+body,
+html,
+li,
+input,
+h2,
+th,
+input,
+nav,
+td,
+h1,
+embed,
+blockquote,
+ol,
+div,
+dl,
+dt,
+dd,
+ul,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+abbr,
+p,
+header,
+hgroup,
+Section,
+figure,
+section,
+nav,
+article,
+aside,
+canvas {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  font-size: $small;
+  border: 0;
+  color: #333;
+  text-decoration: none;
+}
+
+ol,
+ul,
+li {
+  list-style: none;
+}
+
+input,
+textarea {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -webkit-appearance: none;
+}
+
+.el-message-box__wrapper {
+  .el-button--primary {
+    background-color: $flamingo;
+    border-color: $flamingo;
+    width: 70%;
+    &:focus,
+    &:hover {
+      background-color: $flamingo;
+      border-color: $flamingo;
+    }
+  }
+  .el-message-box__headerbtn {
+    &:focus,
+    &:hover {
+      .el-message-box__close {
+        color: $flamingo;
+      }
+    }
+  }
+}
+
+.btn {
+  width: 245px;
+  height: 52px;
+  margin-top: 15px;
+  background: $flamingo;
+  color: $white;
+  font-size: $medium;
+  border: solid 1px $flamingo;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+
+  &:active {
+    opacity: 0.5;
+  }
+  &:disabled {
+    opacity: 0.4;
+  }
+}

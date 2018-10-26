@@ -1,0 +1,6 @@
+/build/
+/config/
+/dist/
+/*.js
+/src/assets/i18n/*.js
+/src/assets/js/iconfont.js
