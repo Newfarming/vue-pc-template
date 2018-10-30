@@ -3,10 +3,10 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
-const target = 'http://0.0.0.0:3333/'       //me
+// const target = 'http://0.0.0.0:3333/'       //me
 // const target = 'http://192.168.170.77:3333/'       //develop
-// const target = 'https://pc-test.clubfactory.com/'  //test
-// const target = 'http://pc-pre.clubfactory.com/'       //pre
+const target = 'https://pc-test.clubfactory.com/'  //test
+// const target = 'http://pc-pre.clubfactory.com/' // pre
 // const target = 'http://192.168.61.225:3333/'       //official
 
 let args = process.argv.splice(2).toString()
@@ -43,11 +43,11 @@ module.exports = {
         pathRewrite: {
           '^/v3': '/v3'
         }
-      },
+      }
     },
 
     // Various Dev Server settings
-    host: 'dev.clubfactory.com', // can be overwritten by process.env.HOST
+    // host: 'dev.clubfactory.com', // can be overwritten by process.env.HOST
     port: 8088, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,

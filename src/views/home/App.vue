@@ -1,7 +1,7 @@
 <template>
   <fixed-header-container>
     <header-component class="header" slot="header"></header-component>
-
+    123456
     <section class="content">
       <back-to-top></back-to-top>
       <carousel :carousel-items="banners" v-if="!showActivity"></carousel>
@@ -118,8 +118,8 @@ export default {
       width: 100%;
       cursor: pointer;
       img {
-        width:100%;
-        display:block;
+        width: 100%;
+        display: block;
       }
     }
     .products {

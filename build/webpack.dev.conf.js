@@ -22,6 +22,7 @@ console.log('assets: ', baseWebpackConfig.resolve.alias.assets)
 console.log('context: ', baseWebpackConfig.context)
 
 const devWebpackConfig = merge(baseWebpackConfig, {
+  mode: 'development',
   module: {
     rules: utils.styleLoaders({
       sourceMap: config.dev.cssSourceMap,
@@ -30,7 +31,32 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   },
   // cheap-module-eval-source-map is faster for development
   devtool: config.dev.devtool,
-
+  optimization: {
+    // minimizer: true,
+    providedExports: true,
+    // usedExports: true,
+    // 识别package.json中的sideEffects以剔除无用的模块，用来做tree-shake
+    // 依赖于optimization.providedExports和optimization.usedExports
+    // sideEffects: true,
+    // 取代 new webpack.optimize.ModuleConcatenationPlugin()
+    // concatenateModules: true,
+    // 取代 new webpack.NoEmitOnErrorsPlugin()，编译错误时不打印输出资源。
+    noEmitOnErrors: true,
+    splitChunks: {
+      chunks: 'async',
+      cacheGroups: {
+        commons: {
+          test: /[\/]node_modules[\/]/,
+          name: 'vendor',
+          chunks: 'all'
+        }
+      }
+    },
+    // 提取webpack运行时的代码
+    // runtimeChunk: {
+    //   name: 'manifest'
+    // }
+  },
   // these devServer options should be customized in /config/index.js
   devServer: {
     clientLogLevel: 'warning',
@@ -63,27 +89,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       'process.env': config.dev.env
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
-    new webpack.NoEmitOnErrorsPlugin(),
-    // https://github.com/ampedandwired/html-webpack-plugin
-    // new HtmlWebpackPlugin({
-    //   filename: 'index.html',
-    //   template: 'index.html',
-    //   inject: true
-    // }),
-    // copy custom static assets
-    // new CopyWebpackPlugin([{
-    //   from: path.resolve(__dirname, '../static'),
-    //   to: config.dev.assetsSubDirectory,
-    //   ignore: ['.*']
-    // }])
-
-    // 提取公共模块
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor', // 公共模块的名称
-      chunks: chunks, // chunks是需要提取的模块
-      minChunks: 2
-    }),
+    new webpack.NamedModulesPlugin()// HMR shows correct file names in console on update.
+    // new webpack.NoEmitOnErrorsPlugin()
   ]
 })
 
@@ -92,30 +99,5 @@ let htmlWebpackPlugins = utils.genHtmlWebpackPlugins(baseWebpackConfig.entry)
 htmlWebpackPlugins.map(function (plugin) {
   devWebpackConfig.plugins.push(plugin)
 })
-
-// module.exports = new Promise((resolve, reject) => {
-//   portfinder.basePort = process.env.PORT || config.dev.port
-//   portfinder.getPort((err, port) => {
-//     if (err) {
-//       reject(err)
-//     } else {
-//       // publish the new Port, necessary for e2e tests
-//       process.env.PORT = port
-//       // add port to devServer config
-//       devWebpackConfig.devServer.port = port
-
-//       // Add FriendlyErrorsPlugin
-//       devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
-//         compilationSuccessInfo: {
-//           messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`],
-//         },
-//         onErrors: config.dev.notifyOnErrors ?
-//           utils.createNotifierCallback() : undefined
-//       }))
-
-//       resolve(devWebpackConfig)
-//     }
-//   })
-// })
 
 module.exports = devWebpackConfig
