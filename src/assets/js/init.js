@@ -25,11 +25,10 @@ import bus from 'assets/js/bus'
 import googleAnalytics from 'assets/js/google_analytics'
 import facebookPixel from 'assets/js/facebook_pixel'
 import store from '@/store'
-import ClubConfirm from 'components/common/Confirm'
 import Raven from 'raven-js'
 import RavenVue from 'raven-js/plugins/vue'
 import utils from './utils'
-import {countryCodeMap} from './country'
+import { countryCodeMap } from './country'
 import i18n from '../i18n'
 import numeral from 'numeral'
 
@@ -163,7 +162,6 @@ export default {
     // Vue.prototype.$prompt = MessageBox.prompt
     // Vue.prototype.$notify = Notification
     Vue.prototype.$message = Message
-    Vue.prototype.$clubConfirm = ClubConfirm.installMessage
 
     if (protoUI) {
       Object.keys(protoUI).forEach(function (key) {
