@@ -33,14 +33,14 @@ var hotMiddleware = require('webpack-hot-middleware')(compiler, {
   }
 })
 // force page reload when html-webpack-plugin template changes
-compiler.plugin('compilation', function (compilation) {
-  compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
-    hotMiddleware.publish({
-      action: 'reload'
-    })
-    cb()
-  })
-})
+// compiler.plugin('compilation', function (compilation) {
+//   compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
+//     hotMiddleware.publish({
+//       action: 'reload'
+//     })
+//     cb()
+//   })
+// })
 
 // proxy api requests
 Object.keys(proxyTable).forEach(function (context) {
@@ -67,7 +67,6 @@ app.use(hotMiddleware)
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
-
 var uri = 'http://localhost:' + port + '/views/home.html'
 
 devMiddleware.waitUntilValid(function () {
@@ -83,6 +82,6 @@ module.exports = app.listen(port, function (err) {
     console.log(err)
     return
   }
-  console.log("\n正在构建初始化中，构建完成后，将自动在浏览器打开页面。");
+  console.log('\n正在构建初始化中，构建完成后，将自动在浏览器打开页面。')
   // when env is testing, don't need open it
 })

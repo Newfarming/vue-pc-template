@@ -5,7 +5,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const packageConfig = require('../package.json')
 const glob = require('glob')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-
+const HtmlWebpackPluginMultihtml = require('html-webpack-plugin-for-multihtml')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 exports.assetsPath = function (_path) {
   const assetsSubDirectory = process.env.NODE_ENV === 'production' ?
     config.build.assetsSubDirectory :
@@ -47,10 +48,7 @@ exports.cssLoaders = function (options) {
     // Extract CSS when that option is specified
     // (which is the case during production build)
     if (options.extract) {
-      return ExtractTextPlugin.extract({
-        use: loaders,
-        fallback: 'vue-style-loader'
-      })
+      return [MiniCssExtractPlugin.loader, ...loaders]
     } else {
       return ['vue-style-loader'].concat(loaders)
     }
@@ -133,7 +131,7 @@ exports.genHtmlWebpackPlugins = function (entries) {
       template: config.templatePath,
       favicon: path.resolve(__dirname, '../src/assets/image/favicon.ico'),
       inject: true,
-      // chunks: [pathname],
+      chunks: [pathname],
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: (c1, c2) => {
         // Corrige bug da ordenação de assets.
@@ -151,11 +149,16 @@ exports.genHtmlWebpackPlugins = function (entries) {
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
       }
-      conf.chunks = ['manifest', 'vendor', 'common', pathname]
+      conf.chunks = ['manifest', 'common', 'vendor', pathname]
     } else {
       conf.chunks = ['vendor', pathname]
     }
+    // if (isProd) {
     return new HtmlWebpackPlugin(conf)
+    // } else {
+    //   console.log('HtmlWebpackPluginMultihtml!!!!!!@@')
+    //   return new HtmlWebpackPluginMultihtml(conf)
+    // }
   })
 
   return htmlWebpackPlugins
